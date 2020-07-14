@@ -13,14 +13,15 @@
 #  You must do this in-place without making a copy of the array. 
 #  Minimize the total number of operations. 
 #  Related Topics 数组 双指针 
-#  👍 648 👎 0
+#  👍 649 👎 0
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
-class Solution:
-    def moveZeroes(self, nums: List[int]) -> None:
+class Solution(object):
+    def moveZeroes(self, nums):
         """
-        Do not return anything, modify nums in-place instead.
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
         """
         i = j = 0
 
