@@ -64,10 +64,10 @@ class Solution(object):
             if num > 0: break
             if i > 0 and num == nums[i - 1]: continue
 
-            tmp = set()
+            tmp = {}
             for right in nums[i + 1:]:
                 if right not in tmp:
-                    tmp.add(-num-right)
+                    tmp[-num-right] = "无所谓是啥"
                 else:
                     res.add((num, -num-right, right))
 

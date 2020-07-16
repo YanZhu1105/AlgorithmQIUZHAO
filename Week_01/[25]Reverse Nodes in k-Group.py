@@ -41,4 +41,30 @@ class Solution(object):
         :type k: int
         :rtype: ListNode
         """
+        dummy = ListNode(None)
+        dummy.next = head
+        pre = dummy
+
+        while head:
+            tail = pre
+            for i in range(k):
+                tail = tail.next
+                if not tail:
+                    return dummy.next
+            nex = tail.next
+            head, tail = self.reverse(head, tail)
+            pre.next = head
+            tail.next = nex
+            pre = tail
+            head = pre.next
+
+        return dummy.next
+
+    def reverse(self, head, tail):
+        pre = tail.next
+        cur = head
+        while pre != tail:
+            cur.next, cur, pre = pre, cur.next, cur
+        return tail, head
+
 # leetcode submit region end(Prohibit modification and deletion)
