@@ -17,7 +17,8 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution(object):
-    def trap(self, height):
+    #stack
+    def trap_stack(self, height):
         """
         :type height: List[int]
         :rtype: int
@@ -36,5 +37,19 @@ class Solution(object):
             stack.append(i)
 
         return water
-
+    #dp
+    def trap_dp(self, height):
+        if not height or len(height) < 3: return 0
+        left, right = 0, len(height) - 1
+        max_left, max_right = height[left], height[right]
+        water = 0
+        while left < right:
+            max_left, max_right = max(max_left, height[left]), max(max_right, height[right])
+            if max_left < max_right:
+                water += max_left - height[left]
+                left += 1
+            else:
+                water += max_right - height[right]
+                right -= 1
+        return water
 # leetcode submit region end(Prohibit modification and deletion)
