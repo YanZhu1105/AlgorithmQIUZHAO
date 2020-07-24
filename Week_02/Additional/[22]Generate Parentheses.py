@@ -15,40 +15,28 @@
 #   "()()()"
 # ]
 #  Related Topics 字符串 回溯算法 
-#  👍 1172 👎 0
+#  👍 1176 👎 0
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution(object):
-    def generateParenthesis(self, n: int):
-        def helper(left, right, path, level):
-            if right == 0:
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+
+        def helper(left, right, path):
+            if not left and not right:
                 res.append(path[:])
                 return
 
             if left > 0:
-                path += '('
-                print(f'level = {level}, {path}')
-                level += 1
-                helper(left - 1, right, path, level)
-                level -= 1
-                path = path[:-1]
-
-            if right > left:
-                path += ')'
-                print(f'level = {level}, {path}')
-                level += 1
-                helper(left, right - 1, path, level)
-                level -= 1
-
-
+                helper(left - 1, right, path + '(')
+            if left < right:
+                helper(left, right - 1, path + ')')
 
         res = []
-        helper(n, n, '', level = 1)
+        helper(n, n, '')
         return res
-
-if __name__ == '__main__':
-    S = Solution()
-    S.generateParenthesis(3)
-
 # leetcode submit region end(Prohibit modification and deletion)
