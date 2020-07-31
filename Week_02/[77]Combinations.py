@@ -39,6 +39,10 @@ class Solution(object):
         helper(1, [])
         return res
 
-S = Solution()
-S.combine(4, 2)
+    def combineListComprehension(self, n, k):
+        res = [[]]
+        for _ in range(k):
+            res = [[i] + c for c in res for i in range(1, c[0] if c else n + 1)]
+        return res
+
 # leetcode submit region end(Prohibit modification and deletion)

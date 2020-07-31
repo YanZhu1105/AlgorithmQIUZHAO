@@ -92,7 +92,37 @@ class Solution(object):
                         queue.append((next_, depth + 1))
                         bank.remove(next_)
         return -1
+
+    # 双向BFS
+    def minMutationDouble(self, start: str, end: str, bank: List[str]) -> int:
+        def bfs(queue, visited, other_visited):
+            curr, depth = queue.popleft()
+            for i in range(len(curr)):
+                for letter in hashmap[curr[i]]:
+                    neighbor = curr[:i] + letter + curr[i+1:]
+                    if neighbor in other_visited: return depth + other_visited[neighbor] + 1
+                    if neighbor not in visited and neighbor in bank:
+                        queue.append((neighbor, depth + 1))
+                        visited[neighbor] = depth + 1
+
+        if not start or not end or end not in bank: return -1
+        hashmap = {'A': 'CGT', 'C': 'AGT', 'G': 'ACT', 'T': 'ACG'}
+        bank = set(bank)
+        queue_start, queue_end = collections.deque(), collections.deque()
+        visited_start, visited_end = collections.defaultdict(int), collections.defaultdict(int)
+        visited_start[start], visited_end[end] = 0, 0
+        queue_start.append((start, 0))
+        queue_end.append((end, 0))
+
+        while queue_start and queue_end:
+            ans = bfs(queue_start, visited_start, visited_end)
+            if ans: return ans
+            ans = bfs(queue_end, visited_end, visited_start)
+            if ans: return ans
+        return -1
+
+
 # leetcode submit region end(Prohibit modification and deletion)
 
 S = Solution()
-S.minMutation("AAAAAAAA", "CCCCCCCC", ["AAAAAAAA","AAAAAAAC","AAAAAACC","AAAAACCC","AAAACCCC","AACACCCC","ACCACCCC","ACCCCCCC","CCCCCCCA","CCCCCCCC"])
+S.minMutationDouble("AACCGGTT", "AAACGGTA", ["AACCGGTA", "AACCGCTA", "AAACGGTA"])
