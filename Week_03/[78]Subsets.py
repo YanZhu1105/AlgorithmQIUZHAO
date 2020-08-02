@@ -50,7 +50,7 @@ class Solution(object):
         res = [[]]
         for i in nums:
             res = res + [[i] + num for num in res]
-        return res169
+        return res
 
     def subsetsRecursion(self, nums):
         def helper(index, path):
