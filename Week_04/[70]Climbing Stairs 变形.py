@@ -69,4 +69,4 @@ class Solution(object):
 # leetcode submit region end(Prohibit modification and deletion)
 
 S = Solution()
-S.climbStairs(10)
+S.climbStairsDifferentStep(5)
