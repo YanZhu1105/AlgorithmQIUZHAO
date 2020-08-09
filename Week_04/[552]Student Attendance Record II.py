@@ -39,16 +39,26 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
-class Solution(object):
-    def checkRecord(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
+class Solution:
+    def checkRecord(self, n: int) -> int:
+        # 6 possiblity:
+        # 1. no A, end in P
+        # 2. no A, end in 1L
+        # 3. no A, end in 2L
+        # 4. A, end in P/A
+        # 5. A, end in 1L
+        # 6. A, end in 2L
 
-        C, m = [1, 1, 0, 1, 0, 0], 10 ** 9 + 7
-        for i in range(n - 1):
-            a, b = sum(C[:3]) % m, sum(C[3:]) % m
-            C = [a, C[0], C[1], a + b, C[3], C[4]]
-        return sum(C) % m
+        count, m = [1, 1, 0, 1, 0, 0], 10 ** 9 + 7
+        for _ in range(1, n):
+            without_A, with_A = sum(count[:3]) % m, sum(count[3:]) % m
+            # 解释：
+            # 1. 之前没有A，随便啥结尾，现在加个P
+            # 2. 之前没有A，并且P结尾，现在加个L
+            # 3. 之前没有A，并且1个L结尾，现在加个L
+            # 4. 有A，分两种，之前有A，现在加P，之前没A，现在加A
+            # 5. 之前有A，现在加L
+            # 6. 之前有A, 并且1个L结尾，现在加个L
+            count = [without_A, count[0], count[1], without_A + with_A, count[3], count[4]]
+        return sum(count) % m
 # leetcode submit region end(Prohibit modification and deletion)
