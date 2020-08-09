@@ -65,4 +65,10 @@ class Solution(object):
 
         return root
 
+    def lowestCommonAncestor1(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if root in [None, p, q]: return root
+        left = self.lowestCommonAncestor1(root.left, p, q)
+        right = self.lowestCommonAncestor1(root.right, p, q)
+        return root if left and right else left or right
+
 # leetcode submit region end(Prohibit modification and deletion)

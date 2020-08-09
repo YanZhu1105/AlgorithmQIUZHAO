@@ -97,19 +97,14 @@ class Solution(object):
             q, m, n = {(a, b)}, len(board), len(board[0])
             while q:
                 p = set()
-                for i, j in q:
-                    c, t = 0, []
-                    for di, dj in d:
-                        x, y = i + di, j + dj
-                        if 0 <= x < m and 0 <= y < n:
-                            c += board[x][y] == 'M'
-                            board[x][y] == 'E' and t.append((x, y))   # 相当于if board[x][y] == 'E': t.append((x, y))
-                    board[i][j] = c and str(c) or p.update(t) or 'B'  # 太帅了
-                q = p
-        return board
-# leetcode submit region end(Prohibit modification and deletion)
-S = Solution()
-S.updateBoard([['E', 'E', 'E', 'E', 'E'],
- ['E', 'E', 'M', 'E', 'E'],
- ['E', 'E', 'E', 'E', 'E'],
- ['E', 'E', 'E', 'E', 'E']], [3,0])
+                for x, y in queue:
+                    count, temp = 0, []
+                    # for new_x, new_y in [(x + dx, y + dy) for dx, dy in directions]:
+                    for dx, dy in directions:
+                        new_x, new_y = x + dx, y + dy
+                        if 0 <= new_x < len(board) and 0 <= new_y < len(board[0]):
+                            count += board[new_x][new_y] == 'M'
+                            board[new_x][new_y] == 'E' and temp.append((new_x, new_y))
+                    board[x][y] = count and str(count) or p.update(temp) or 'B'
+                queue = p
+            return board

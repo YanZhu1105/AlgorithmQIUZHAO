@@ -118,9 +118,42 @@ class Solution(object):
             if ans: return ans
         return 0
 
+    def ladderLengthSet(self, beginWord: str, endWord: str, wordList) -> int:
+        if not beginWord or endWord not in wordList: return 0
+        bq, eq, bv, ev, wordList = {(beginWord, 1)}, {(endWord, 1)}, {beginWord: 1}, {endWord: 1}, set(wordList)
+        while bq:
+            t = set()
+            for word, step in bq:
+                for neighbor in [word[:i] + letter + word[i+1:] for i in range(len(word)) for letter in 'qwertyuiopasdfghjklzxcvbnm']:
+                    if neighbor in wordList:
+                        if neighbor in ev: return step + ev[neighbor]
+                        if neighbor not in bv:
+                            t.add((neighbor, step + 1))
+                            bv[neighbor] = step + 1
+            bq = t
+            if len(bq) > len(eq):
+                bq, eq = eq, bq
+                bv, ev = ev, bv
+        return 0
 
-
+    def ladderLengthSet2(self, beginWord: str, endWord: str, wordList) -> int:
+        if not beginWord or endWord not in wordList: return 0
+        ans = 2
+        bq, eq, wordList = {beginWord}, {endWord}, set(wordList)
+        wordList.discard(beginWord)
+        while bq:
+            neighbor = set([word[:i] + char + word[i + 1:] for word in bq for i in range(len(word)) for char in
+                            'qwertyuiopasdfghjklzxcvbnm'])
+            bq = neighbor & wordList
+            if bq & eq: return ans
+            ans += 1
+            if len(bq) > len(eq):
+                bq, eq = eq, bq
+            wordList -= bq
+        return 0
 # leetcode submit region end(Prohibit modification and deletion)
 
 S = Solution()
-print(S.ladderLength("hit", "cog", ["hot", "dot", "dog", "lot", "log", "cog"]))
+print(S.ladderLengthSet2("hot",
+"dog",
+["hot","dog"]))
