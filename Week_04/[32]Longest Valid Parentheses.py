@@ -33,8 +33,7 @@ class Solution(object):
         # 初始值 dp[0] = 0, dp[1]就看前两个是不是一对
         if len(s) <= 1: return 0
         dp = [0 for _ in range(len(s))]
-        dp[1] = 2 if s[0] == '(' and s[1] == ')' else 0
-        for i in range(2, len(s)):
+        for i in range(1, len(s)):
             if s[i] == ')':
                 if s[i-1] == '(': dp[i] = dp[i-2] + 2
                 else:

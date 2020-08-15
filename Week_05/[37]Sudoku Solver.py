@@ -78,6 +78,15 @@ class Solution(object):
                 else:
                     empty.append((i, j))
 
+        prior = [[float('inf') for _ in range(9)] for _ in range(9)]
+
+        for i in range(9):
+            for j in range(9):
+                if board[i][j] == '.':
+                    prior[i][j] = len(row[i] & col[j] & block[(i//3)*3 + j//3])
+
+        next_fill_index = prior.index(min(map(min, prior)))
+
         def backtrack(count = 0):
             if count == len(empty): return True
             i, j = empty[count]

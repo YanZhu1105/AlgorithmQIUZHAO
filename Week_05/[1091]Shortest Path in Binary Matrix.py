@@ -73,7 +73,6 @@ class Solution(object):
                 new_i, new_j = i + di, j + dj
                 if 0 <= new_i < n and 0 <= new_j < n and not grid[new_i][new_j]:
                     if new_i == new_j == n - 1:
-                        print(step + 1)
                         return step + 1
                     heappush(pq, (self.manhattan(new_i, new_j, n) + step, new_i, new_j, step + 1))
 

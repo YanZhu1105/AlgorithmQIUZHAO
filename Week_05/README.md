@@ -1,3 +1,11 @@
+如何选择heuristic: http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html
+37: 用逻辑符号确实妙！用位运算来压缩状态。推而广之，只要是要开visitied，基本上可以用binary来压缩状态，加速也省空间
+1091：visited 究竟是放在neighbor那里，还是pop那里，还是需要多思考。
+heuristic基本上曼哈顿通用，max(abs(x - goal[x]) , abs(y - goal[y]))。8方向的话，diagonal可以用。
+
+双向BFS写的很熟练了。位运算以前没有接触过，要多练，很好的trick，很多地方能用到。A star并不难。并查集很有趣，不难，就是
+比较局限。
+
 class TwoEndedBFS:    
     def ladderLengthDoubleEnded(self, beginWord, endWord, wordList):
         def bfs(queue, visited, other_visited):
