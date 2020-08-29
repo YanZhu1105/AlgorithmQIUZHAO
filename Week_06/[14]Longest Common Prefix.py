@@ -78,10 +78,10 @@ class Solution(object):
     # max, min 更绝
     # call min/max 会alphabetical sort strs, min给第一个，max给最后一个，直接比较这两个最不同的就ok
     class Solution:
-        def longestCommonPrefixMax(self, S: List[str]) -> str:
-            if not S: return ''
-            m, M, i = min(S), max(S), 0
+        def longestCommonPrefixMax(self, strs) -> str:
+            if not strs: return ''
+            m, M = min(strs), max(strs)
             for i, char in enumerate(m):
-                if char != M[i]: break
-            return m[:i]
+                if char != M[i]: return m[:i]
+            return m
 # leetcode submit region end(Prohibit modification and deletion)

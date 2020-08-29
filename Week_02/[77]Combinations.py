@@ -42,7 +42,7 @@ class Solution(object):
     def combineListComprehension(self, n, k):
         res = [[]]
         for _ in range(k):
-            res = [[i] + c for c in res for i in range(1, c[0] if c else n + 1)]
+            res = [[i] + c for c in res for i in range(1, c[-1] if c else n + 1)]
         return res
 
 # leetcode submit region end(Prohibit modification and deletion)

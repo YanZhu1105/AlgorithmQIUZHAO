@@ -29,20 +29,16 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
-class Solution(object):
+class Solution:
     def merge(self, intervals):
-        """
-        :type intervals: List[List[int]]
-        :rtype: List[List[int]]
-        """
         if not intervals: return []
         intervals.sort(key = lambda x: x[0])
-        res, j = [intervals[0]], 0
-        for temp in intervals[1:]:
+        res = [intervals[0]]
+        for i in range(1, len(intervals)):
+            temp = intervals[i]
             if temp[0] > res[-1][1]:
                 res.append(temp)
-                j += 1
             else:
-                res[j][1] = max(temp[1], res[j][1])
+                res[-1][1] = max(res[-1][1], temp[1])
         return res
 # leetcode submit region end(Prohibit modification and deletion)
