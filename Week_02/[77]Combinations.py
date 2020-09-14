@@ -39,10 +39,11 @@ class Solution(object):
         helper(1, [])
         return res
 
-    def combineListComprehension(self, n, k):
-        res = [[]]
-        for _ in range(k):
-            res = [[i] + c for c in res for i in range(1, c[-1] if c else n + 1)]
-        return res
+    # 9月8号测试，不能这么写了
+    # def combineListComprehension(self, n, k):
+    #     res = [[]]
+    #     for _ in range(k):
+    #         res = [[i] + c for c in res for i in range(1, c[-1] if c else n + 1)]
+    #     return res
 
 # leetcode submit region end(Prohibit modification and deletion)

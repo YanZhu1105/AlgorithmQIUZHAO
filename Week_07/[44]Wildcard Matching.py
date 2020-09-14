@@ -71,30 +71,31 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
-class Solution(object):
-    def isMatch(self, s, p):
-        """
-        :type s: str
-        :type p: str
-        :rtype: bool
-        """
-        m, n = len(s), len(p)
+class Solution:
+    def isMatch(self, s: str, p: str) -> bool:
+        s = '?' + s
+        p = '?' + p
+        ls, lp = len(s), len(p)
 
-        def matches(i, j):
-            return (i != 0) and (p[j - 1] in ['?', s[i - 1]])
+        dp = [[False] * (ls) for _ in range(lp)]
+        dp[0][0] = True
 
-        f = [[False] * (n + 1) for _ in range(m + 1)]
-        f[0][0] = True
-        for i in range(1, n + 1):
-            if p[i - 1] == '*':
-                f[0][i] = True
+        for i in range(1, lp):
+            if p[i] == "*":
+                for j in range(ls):
+                    dp[i][j] = True
             else:
                 break
-        for i in range(m + 1):
-            for j in range(1, n + 1):
-                if p[j - 1] == '*':
-                    f[i][j] |= f[i - 1][j] | f[i][j - 1]
-                else:
-                    f[i][j] |= f[i - 1][j - 1] & matches(i, j)
-        return f[m][n]
+
+        for i in range(1, lp):
+            for j in range(1, ls):
+                if p[i] == '*':
+                    if dp[i - 1][j] or dp[i][j - 1]:
+                        dp[i][j] = True
+
+                elif p[i] == "?" or p[i] == s[j]:
+                    dp[i][j] = dp[i - 1][j - 1]
+        # return dp
+        return dp[lp - 1][ls - 1]
+
 # leetcode submit region end(Prohibit modification and deletion)
