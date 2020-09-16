@@ -34,5 +34,10 @@ class Solution(object):
         :type A: List[int]
         :rtype: List[int]
         """
-        
+        i, j = 0, len(A) - 1
+        while i < j:
+            while i < j and not (A[i] & 1): i += 1
+            while i < j and (A[j] & 1): j -= 1
+            A[i], A[j] = A[j], A[i]
+        return A
 # leetcode submit region end(Prohibit modification and deletion)

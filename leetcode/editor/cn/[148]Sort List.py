@@ -33,7 +33,7 @@ class Solution(object):
         slow, fast = head, head.next
         while fast and fast.next:
             slow, fast = slow.next, fast.next.next
-        mid, slow.next = slow, None
+        mid, slow.next = slow.next, None
         left, right = self.sortList(head), self.sortList(mid)
         head = dummy = ListNode(None)
         while left and right:
@@ -75,3 +75,5 @@ class Solution(object):
         return res.next
 
 # leetcode submit region end(Prohibit modification and deletion)
+S = Solution()
+S.sortListRecursion([4, 2, 1, 3])
